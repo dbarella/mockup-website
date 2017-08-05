@@ -24,7 +24,7 @@ posts/
   year/
     month/
       day/
-        <post-name>/
+        post-name/
           content.html
           <optional additional contents within>
 ```
