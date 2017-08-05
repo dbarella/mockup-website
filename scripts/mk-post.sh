@@ -12,9 +12,9 @@ mk_post() {
   mkdir -p "${post_dir}" || echo 'Failed!'
 
   # Make a stub markdown file
-  printf "%s" "  Populating stub markdown file... "
+  printf '  %s ' 'Populating stub markdown file...'
   touch "${post_dir}/content.md" || echo 'Failed!'
-  printf "%s\n" 'Done.'
+  printf '%s\n' 'done.'
 }
 
 main() {
