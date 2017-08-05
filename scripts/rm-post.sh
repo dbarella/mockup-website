@@ -1,5 +1,6 @@
 set -o pipefail -o noclobber #-x
 
+# Remove the post directory at the path specified by the contents of $1
 remove_post() {
   name="$1"
   shift

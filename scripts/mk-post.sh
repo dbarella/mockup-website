@@ -10,6 +10,7 @@ mk_stub_markdown() {
   printf '%s\n' 'done.'
 }
 
+# Make a post directory at the path specified by the contents of $1
 mk_post() {
   name="$1"
   shift
