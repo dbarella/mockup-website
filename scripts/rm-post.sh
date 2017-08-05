@@ -1,4 +1,4 @@
-set -o pipefail -o noclobber -x
+set -o pipefail -o noclobber  #-x
 
 remove_post() {
   name="$1"
