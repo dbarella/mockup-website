@@ -1,14 +1,6 @@
-set -C -x -o pipefail
+set -o pipefail -o noclobber -x
 
-# Exit if the last command run failed
-or_exit() {
-  if [[ "$?" != 0 ]]; then
-    echo 'Failed!'
-    exit 1
-  fi
-}
-
-main() {
+mk_post() {
   name="$1"
   shift
 
@@ -17,14 +9,17 @@ main() {
 
   # Make a directory of the form posts/year/month/date/name
   echo "Creating post directory at '${post_dir}'"
-  mkdir -p "${post_dir}"; or_exit
+  mkdir -p "${post_dir}" || echo 'Failed!'
 
   # Make a stub markdown file
   echo "Populating stub markdown file in '${post_dir}'"
-  touch "${post_dir}/content.md"; or_exit
+  touch "${post_dir}/content.md" || echo 'Failed!'
+}
 
-  echo 'Success.'
-  exit 0
+main() {
+  for post in "$@"; do
+    mk_post "${post}"
+  done
 }
 
 main "$@"
