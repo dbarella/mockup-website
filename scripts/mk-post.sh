@@ -1,4 +1,14 @@
-set -o pipefail -o noclobber  #-x
+set -o pipefail -o noclobber #-x
+
+# Make a stub markdown file in the $1 directory
+mk_stub_markdown() {
+  post_dir=$1
+  shift
+
+  printf '  %s ' 'Populating stub markdown file...'
+  touch "${post_dir}/content.md" || echo 'Failed!'
+  printf '%s\n' 'done.'
+}
 
 mk_post() {
   name="$1"
@@ -9,12 +19,13 @@ mk_post() {
 
   # Make a directory of the form posts/year/month/date/name
   echo "Creating post directory at '${post_dir}':"
-  mkdir -p "${post_dir}" || echo 'Failed!'
+  mkdir -p "${post_dir}"
 
-  # Make a stub markdown file
-  printf '  %s ' 'Populating stub markdown file...'
-  touch "${post_dir}/content.md" || echo 'Failed!'
-  printf '%s\n' 'done.'
+  if [[ "$?" = 0 ]]; then
+    mk_stub_markdown "${post_dir}"
+  else
+    printf '%s\n\n' 'Failed!'
+  fi
 }
 
 main() {
