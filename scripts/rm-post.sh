@@ -1,14 +1,6 @@
-set -C -x -o pipefail
+set -o pipefail -o noclobber -x
 
-# Exit if the last command run failed
-or_exit() {
-  if [[ "$?" != 0 ]]; then
-    echo 'Failed!'
-    exit 1
-  fi
-}
-
-main() {
+remove_post() {
   name="$1"
   shift
 
@@ -17,10 +9,13 @@ main() {
   post_dir="src/posts/$(date -j "+%Y/%m/%d")/${name}"
 
   echo "Removing post directory at '${post_dir}'"
-  rm -rv "${post_dir}"; or_exit
+  rm -rv "${post_dir}" || echo 'Failed!'
+}
 
-  echo 'Success.'
-  exit 0
+main() {
+  for post in "$@"; do
+    remove_post "${post}"
+  done
 }
 
 main "$@"
