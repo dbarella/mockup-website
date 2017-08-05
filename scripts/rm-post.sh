@@ -1,4 +1,4 @@
-set -o pipefail -o noclobber  #-x
+set -o pipefail -o noclobber #-x
 
 remove_post() {
   name="$1"
@@ -9,8 +9,12 @@ remove_post() {
   post_dir="src/posts/$(date -j "+%Y/%m/%d")/${name}"
 
   printf '%s ' "Removing post directory at '${post_dir}'..."
-  rm -r "${post_dir}" || echo 'Failed!'
-  printf '%s\n' 'done.'
+  rm -r "${post_dir}"
+  if [[ "$?" = 0 ]]; then
+    printf '%s\n' 'done.'
+  else
+    printf '%s\n\n' 'Failed!'
+  fi
 }
 
 main() {
