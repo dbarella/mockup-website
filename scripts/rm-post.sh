@@ -17,7 +17,7 @@ main() {
   post_dir="src/posts/$(date -j "+%Y/%m/%d")/${name}"
 
   echo "Removing post directory at '${post_dir}'"
-  echo rm -rv "${post_dir}"; or_exit
+  rm -rv "${post_dir}"; or_exit
 
   echo 'Success.'
   exit 0
