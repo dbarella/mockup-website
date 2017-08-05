@@ -8,8 +8,9 @@ remove_post() {
   # Assumes a directory of the form posts/year/month/date/name
   post_dir="src/posts/$(date -j "+%Y/%m/%d")/${name}"
 
-  echo "Removing post directory at '${post_dir}'"
-  rm -rv "${post_dir}" || echo 'Failed!'
+  printf '%s' "Removing post directory at '${post_dir}'... "
+  rm -r "${post_dir}" || echo 'Failed!'
+  printf "%s\n" 'Done.'
 }
 
 main() {
